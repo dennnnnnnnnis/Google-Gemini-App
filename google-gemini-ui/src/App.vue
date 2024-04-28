@@ -1,9 +1,10 @@
 <script setup>
-import GameTest from "@/views/game/GameTest.vue"
+import CharacterName from "@/views/game/CharacterName.vue"
 </script>
 
 <template>
-    <GameTest/>
+  <!-- <SetLanguage/> -->
+  <CharacterName/>
 </template>
 
 <style scoped>
