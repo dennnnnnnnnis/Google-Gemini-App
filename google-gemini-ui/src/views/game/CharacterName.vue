@@ -1,7 +1,7 @@
 
 <template>
   <div>
-    <el-carousel type="card" height="300px" :autoplay="false">
+    <el-carousel type="card" height="350px" :autoplay="false">
       <el-carousel-item v-for="(item, index) in questions" :key="index">
         <div class="carousel-card">
           <h3>{{ item.question }}</h3>
@@ -22,17 +22,22 @@
       <el-carousel-item>
         <div class="carousel-card">
           <h3>What is your preferred interaction during the game</h3>
-          <el-form>
-            <!-- 这个要想一想 -->
+          <el-form label-width="auto" style="max-width: 600px">
+            <el-space fill>
+              <!-- 这个要想一想 -->
             <el-form-item label="Type of puzzle">
-              <el-select v-model="type" placeholder="Please select what type you want to choose">
+              <el-select v-model="type" placeholder="Please select what type you want">
                 <el-option label="Puzzle"/>
                 <el-option label="Multiple choice question" />
               </el-select>
             </el-form-item>
-            <el-form-item label="Theme of Puzzle">
-              <el-input v-model="age"></el-input>
+            <div style="max-width: 600px">
+              <el-alert title="Like treasure finding, beat the boss" type="info" close-text="Gotcha" />
+            </div>
+            <el-form-item label="Theme of Puzzle" >
+              <el-input v-model="theme" placeholder="Please type your prefered theme"></el-input>
             </el-form-item>
+            </el-space>
           </el-form>
         </div>
       </el-carousel-item>
@@ -57,11 +62,13 @@ export default defineComponent({
       // Add more questions here
     ]);
     const type = ref('');
+    const theme = ref('');
     return {
       questions,
       selectedDifficulty,
       handleDifficultyChange,
       type,
+      theme,
     };
     
   },
@@ -81,5 +88,11 @@ export default defineComponent({
 
 .el-carousel__item:nth-child(2n + 1) {
   background-color: #d3dce6;
+}
+.el-alert {
+  margin: 10px 0 0;
+}
+.el-alert:first-child {
+  margin: 0;
 }
 </style>
