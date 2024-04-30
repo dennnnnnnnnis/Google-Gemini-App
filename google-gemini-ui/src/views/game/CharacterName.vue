@@ -12,9 +12,9 @@
         <div class="carousel-card">
           <h3>Please select your preferred difficulty level</h3>
           <el-radio-group v-model="selectedDifficulty">
-            <el-radio label="easy">Easy: 20mins</el-radio>
-            <el-radio label="moderate">Moderate: 15 mins</el-radio>
-            <el-radio label="hard">Hard: 10 mins</el-radio>
+            <el-radio value="easy">Easy: 20mins</el-radio>
+            <el-radio value="moderate">Moderate: 15 mins</el-radio>
+            <el-radio value="hard">Hard: 10 mins</el-radio>
           </el-radio-group>
         </div>
       </el-carousel-item>
@@ -26,9 +26,9 @@
             <el-space fill>
               <!-- 这个要想一想 -->
             <el-form-item label="Type of puzzle">
-              <el-select v-model="type" placeholder="Please select what type you want">
-                <el-option label="Puzzle"/>
-                <el-option label="Multiple choice question" />
+              <el-select v-model="type" placeholder="Please select what type of interaction you want">
+                <el-option value="Puzzle"/>
+                <el-option value="Multiple choice question" />
               </el-select>
             </el-form-item>
             <div style="max-width: 600px">
@@ -49,7 +49,9 @@
 </template>
 
 <script>
+import { gameSetup, generateAnswer } from '@/api/api';
 import { defineComponent, ref } from 'vue';
+import { EventBus } from '@/api/event-bus';
 
 export default defineComponent({
   name: 'MyCarousel',
@@ -57,6 +59,17 @@ export default defineComponent({
     handleSubmit() {
       // implement the logic of submit
       console.log('Submit the data:', { questions: this.questions, selectedDifficulty: this.selectedDifficulty, type: this.type, theme: this.theme });
+      let param = {
+        characterName: this.questions[0]["answer"],
+        goal: this.questions[1]["answer"],
+        gameDifficulty: this.selectedDifficulty,
+        gameType: this.type,
+        theme: this.theme,
+      }
+      gameSetup(param).then((res) => {
+        console.log(res.data)
+        EventBus.$emit('game-setup', res.data);
+      })
     }
   },
   setup() {
