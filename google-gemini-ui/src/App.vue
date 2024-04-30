@@ -1,9 +1,11 @@
 <script setup>
-
+import CharacterName from "@/views/game/CharacterName.vue"
 </script>
 
 <template>
-    <router-view/>
+  <!-- <SetLanguage/> -->
+  <!-- <routerView/> -->
+  <CharacterName/>
 </template>
 
 <style scoped>
