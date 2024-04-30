@@ -42,6 +42,9 @@
         </div>
       </el-carousel-item>
     </el-carousel>
+    <div style="padding-top: 20px; text-align: center;">
+      <el-button type="primary" @click="handleSubmit">Get started!</el-button>
+    </div>
   </div>
 </template>
 
@@ -50,6 +53,12 @@ import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
   name: 'MyCarousel',
+  methods: {
+    handleSubmit() {
+      // implement the logic of submit
+      console.log('Submit the data:', { questions: this.questions, selectedDifficulty: this.selectedDifficulty, type: this.type, theme: this.theme });
+    }
+  },
   setup() {
     const selectedDifficulty = ref(''); 
     const handleDifficultyChange = (value) => {
