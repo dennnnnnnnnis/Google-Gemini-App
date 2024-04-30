@@ -1,9 +1,9 @@
 <script setup>
-import GameTest from "@/views/game/GameTest.vue"
+
 </script>
 
 <template>
-    <GameTest/>
+    <router-view/>
 </template>
 
 <style scoped>
