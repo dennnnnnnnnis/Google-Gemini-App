@@ -5,6 +5,10 @@ const routes = [
         path: '/test',
         component: () => import("@/views/game/GameTest.vue")
     },
+    {
+        path: '/play',
+        component: () => import("@/views/game/GameList.vue")
+    },
 
 ]
 

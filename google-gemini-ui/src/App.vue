@@ -4,7 +4,7 @@ import CharacterName from "@/views/game/CharacterName.vue"
 
 <template>
   <!-- <SetLanguage/> -->
-  <!-- <routerView/> -->
+  <!-- <router-view/> -->
   <CharacterName/>
 </template>
 
