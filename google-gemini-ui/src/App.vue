@@ -1,11 +1,15 @@
 <script setup>
-import CharacterName from "@/views/game/CharacterName.vue"
+//import CharacterName from "@/views/game/CharacterName.vue"
+//import PreferencePage from "@/views/PreferencePage.vue"
+import MainGame  from "./views/game/MainGame.vue";
 </script>
 
 <template>
   <!-- <SetLanguage/> -->
+  <!-- <CharacterName/> -->
+  <!-- <PreferencePage/> -->
   <!-- <router-view/> -->
-  <CharacterName/>
+  <MainGame/>
 </template>
 
 <style scoped>
