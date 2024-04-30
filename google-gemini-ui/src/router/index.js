@@ -2,8 +2,8 @@ import { createRouter, createWebHashHistory } from "vue-router"
 
 const routes = [
     {
-        path: '/test',
-        component: () => import("@/views/game/GameTest.vue")
+        path: '/main-game',
+        component: () => import("@/views/MainGamePage.vue")
     },
 
 ]
