@@ -8,9 +8,9 @@
         <el-footer style="text-align: center; font-size: 20px">© 2024 google-gemini-ui</el-footer>
       </el-container>
     </div>
-  </template>
+</template>
   
-  <script>
+<script>
 
 //   import { ElInput, ElButton } from 'element-plus'; // Make sure to import these if they are not globally registered
   import CharacterName from "@/views/game/CharacterName.vue"

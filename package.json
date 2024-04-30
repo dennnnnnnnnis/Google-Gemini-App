@@ -1,0 +1,13 @@
+{
+  "name": "google-gemini-app",
+  "version": "1.0.0",
+  "description": "Using google gemini to generate an interactive wording game",
+  "scripts": {
+    "start-flask": "cd flask-app && flask --app app run",
+    "start-vue": "cd google-gemini-ui && npm run dev",
+    "start": "concurrently \"npm run start-flask\" \"npm run start-vue\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
