@@ -12,12 +12,11 @@
   
 <script>
 
-//   import { ElInput, ElButton } from 'element-plus'; // Make sure to import these if they are not globally registered
-  import CharacterName from "@/views/game/CharacterName.vue"
+import CharacterName from "@/views/game/CharacterName.vue"
 
- export default {
+export default {
   components: {
-    CharacterName // 注册组件
+    CharacterName
   }
 };
 </script>

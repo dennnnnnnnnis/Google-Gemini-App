@@ -1,18 +1,23 @@
 <template>
   <div class="common-layout">
-    <el-container>
-      <el-header style="text-align: center; font-size: 30px">Game</el-header>
-      <el-main>
-        <game-description :description="steps[currentStep].description"></game-description>
-        <input-dialog-form :form="steps[currentStep].form" @submit="submit"></input-dialog-form>
+    <el-container class="container">
+      <el-header style="text-align: center; font-size: 30px" class="header">Game</el-header>
+      <el-main class="main">
+        <el-row :gutter="20">
+          <el-col :span="16"><game-description :description="steps[currentStep].description"></game-description></el-col>
+          <!-- 这里应该是之前的input -->
+          <el-col :span="8"><input-dialog-form :form="steps[currentStep].form" @submit="submit"></input-dialog-form></el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="24"><input-dialog-form :form="steps[currentStep].form" @submit="submit"></input-dialog-form></el-col>
+        </el-row>
       </el-main>
-      <el-footer style="text-align: center; font-size: 20px">© 2024 google-gemini-ui</el-footer>
+      <el-footer style="text-align: center; font-size: 20px; position: fixed; bottom: 0; width: 100%;" class="footer">© 2024 google-gemini-ui</el-footer>
     </el-container>
   </div>
 </template>
-  
-<script>
 
+<script>
 import GameDescription from "@/views/game/GameDescription.vue";
 import InputDialogForm from "@/views/game/InputDialogForm.vue";
 import { defineComponent, ref, reactive } from 'vue';
@@ -45,9 +50,6 @@ export default defineComponent({
       console.log("Current step answer:", answer);
       if (currentStep.value < steps.length - 1) {
         currentStep.value++;
-      } else {
-        console.log("Game setup complete!");
-        // 这里可以处理游戏设置完成后的逻辑
       }
     };
 
@@ -59,4 +61,40 @@ export default defineComponent({
   },
 });
 </script>
-    
+
+<style>
+.el-row {
+  margin-bottom: 20px;
+}
+.el-row:last-child {
+  margin-bottom: 0;
+}
+.el-col {
+  border-radius: 4px;
+}
+
+.grid-content {
+  border-radius: 4px;
+  min-height: 36px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.header {
+  background-color: #283593; /* 深蓝色 */
+  color: #fff; /* 文字颜色 */
+}
+
+.main {
+  background-color: #E3F2FD; /* 浅蓝色 */
+}
+
+.footer {
+  background-color: #283593; /* 深蓝色 */
+  color: #fff; /* 文字颜色 */
+}
+</style>

@@ -40,8 +40,8 @@
   </style>
    -->
 
-   <template>
-    <el-form @submit.prevent="handleSubmit">
+  <template>
+    <el-form @submit.prevent="handleSubmit" label-position="top">
       <el-form-item :label="form.question">
         <el-input v-model="form.answer" type="textarea" :rows="3" placeholder="Type your answer here..."></el-input>
       </el-form-item>
