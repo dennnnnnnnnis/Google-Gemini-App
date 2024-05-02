@@ -9,10 +9,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "element-plus": "^2.7.0",
-    "vue": "^3.4.21",
     "axios": "^1.6.8",
-    "vue-router": "^4.3.2"
+    "element-plus": "^2.7.0",
+    "mitt": "^3.0.1",
+    "pinia": "^2.1.7",
+    "tiny-emitter": "^2.1.0",
+    "vue": "^3.4.21",
+    "vue-router": "^4.3.2",
+    "vue3-eventbus": "^2.0.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",

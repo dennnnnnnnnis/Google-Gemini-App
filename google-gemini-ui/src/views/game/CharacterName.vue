@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <el-carousel type="card" height="350px" :autoplay="false">
@@ -48,53 +47,48 @@
   </div>
 </template>
 
-<script>
-import { gameSetup, generateAnswer } from '@/api/api';
-import { defineComponent, ref } from 'vue';
-import { EventBus } from '@/api/event-bus';
+<script setup>
+import { gameSetup } from '@/api/api';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { useGameStageStore } from '@/utils/pinia';
 
-export default defineComponent({
-  name: 'MyCarousel',
-  methods: {
-    handleSubmit() {
-      // implement the logic of submit
-      console.log('Submit the data:', { questions: this.questions, selectedDifficulty: this.selectedDifficulty, type: this.type, theme: this.theme });
-      let param = {
-        characterName: this.questions[0]["answer"],
-        goal: this.questions[1]["answer"],
-        gameDifficulty: this.selectedDifficulty,
-        gameType: this.type,
-        theme: this.theme,
-      }
-      gameSetup(param).then((res) => {
-        console.log(res.data)
-        EventBus.$emit('game-setup', res.data);
-      })
-    }
-  },
-  setup() {
-    const selectedDifficulty = ref(''); 
-    const handleDifficultyChange = (value) => {
-      console.log('Selected difficulty:', value);
-    };
+const selectedDifficulty = ref(''); 
+const questions = ref([
+  { question: 'Please enter your character name for the game:', answer: '' },
+  { question: 'Please set a goal:', answer: '' },
+  // Add more questions here
+]);
+const type = ref('');
+const theme = ref('');
+const router = useRouter()
+const store = useGameStageStore()
 
-    const questions = ref([
-      { question: 'Please enter your character name for the game:', answer: '' },
-      { question: 'Please set a goal:', answer: '' },
-      // Add more questions here
-    ]);
-    const type = ref('');
-    const theme = ref('');
-    return {
-      questions,
-      selectedDifficulty,
-      handleDifficultyChange,
-      type,
-      theme,
-    };
-    
-  },
-});
+const handleSubmit = () => {
+  // implement the logic of submit
+  console.log('Submit the data');
+  let param = {
+    characterName: questions.value[0]["answer"],
+    goal: questions.value[1]["answer"],
+    gameDifficulty: selectedDifficulty.value,
+    gameType: type.value,
+    theme: theme.value,
+  }
+  gameSetup(param).then((res) => {
+    console.log(res.data)
+    // store.$patch((state) => {
+    //   state.steps.push({
+    //     description: res.data["description"],
+    //     form: {
+    //         question: res.data["question"],
+    //         answer: ""
+    //     }
+    //   })
+    // })
+    store.gameNextStep(res.data)
+    router.push("/main-game")
+  })
+}
 </script>
 
 <style scoped>
