@@ -3,8 +3,19 @@
     <el-container>
       <el-header style="text-align: center; font-size: 30px">Game</el-header>
       <el-main>
-        <game-description :description="currStep.description"></game-description>
-        <InputDialogForm/>
+        <div>
+          <template v-for="(item, index) in allSteps">
+            <el-descriptions title="Game Stage">
+              <el-descriptions-item>{{ item.description }}</el-descriptions-item>
+            </el-descriptions>
+            <el-form>
+              <el-form-item :label="item.form.question">
+                <el-input v-model="answer" type="textarea" :rows="3" placeholder="Type your answer here..."></el-input>
+              </el-form-item>
+              <el-button type="primary" @click="handleSubmit">Submit</el-button>
+            </el-form>
+          </template>
+        </div>
       </el-main>
       <el-footer style="text-align: center; font-size: 20px">© 2024 google-gemini-ui</el-footer>
     </el-container>
@@ -12,46 +23,24 @@
 </template>
   
 <script setup>
-import GameDescription from "@/views/game/GameDescription.vue";
-import InputDialogForm from "@/views/game/InputDialogForm.vue";
-import { ref, reactive, watch } from 'vue';
+import { ref, computed } from 'vue';
 import { useGameStageStore } from '@/utils/pinia';
-import { storeToRefs } from 'pinia'
 import { generateAnswer } from '@/api/api';
 
 const store = useGameStageStore()
-const { steps } = storeToRefs(store)
-const currStep = steps.value.pop()
+const answer = ref("")
 
-watch(() => steps, (newSteps, oldSteps) => {
-  currStep = newSteps.value.pop()
-})
+const handleSubmit = () => {
+  let param = {
+    userInput: answer.value
+  }
+  generateAnswer(param).then((res) => {
+    console.log(res.data)
+    store.gameNextStep(res.data)
+    answer.value = ""
+  })
+};
 
-// console.log(steps)
-// console.log(currStep)
-
-// store.$subscribe((mutation, state) => {
-//   console.log(mutation)
-//   console.log(state)
-//   steps = state.steps
-//   currStep.value = steps.value.pop()
-// })
-
-// const submit = (answer) => {
-//   console.log("Current step answer:", answer);
-//   let param = {
-//     userInput: answer
-//   }
-//   generateAnswer(param).then((res) => {
-//     console.log(res.data)
-//     steps.push({
-//       description: res.data["description"],
-//       form: {
-//         question: res.data["question"],
-//         answer: ""
-//       }
-//     })
-//   })
-// };
+const allSteps = computed(() => store.steps);
 </script>
     

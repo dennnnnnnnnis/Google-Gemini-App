@@ -13,10 +13,6 @@ const routes = [
         path: '/language',
         component: () => import("@/views/SetLanguage.vue")
     },
-    {
-        path: '/test',
-        component: () => import("@/views/game/GameTest.vue")
-    },
 
 ]
 

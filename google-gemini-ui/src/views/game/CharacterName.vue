@@ -76,15 +76,6 @@ const handleSubmit = () => {
   }
   gameSetup(param).then((res) => {
     console.log(res.data)
-    // store.$patch((state) => {
-    //   state.steps.push({
-    //     description: res.data["description"],
-    //     form: {
-    //         question: res.data["question"],
-    //         answer: ""
-    //     }
-    //   })
-    // })
     store.gameNextStep(res.data)
     router.push("/main-game")
   })

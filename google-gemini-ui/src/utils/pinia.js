@@ -13,5 +13,8 @@ export const useGameStageStore = defineStore('gameStage', () => {
             }
         })
     }
-    return { steps, gameNextStep }
+    function retrieveCurrStep(){
+        return steps.at(-1)
+    }
+    return { steps, gameNextStep, retrieveCurrStep }
 })
