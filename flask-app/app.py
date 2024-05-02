@@ -1,9 +1,9 @@
 from flask import Flask, request, jsonify
-from flask.views import MethodView
 from flask_cors import CORS
 
 import google.generativeai as genai
 import os
+import re
 
 os.environ['GOOGLE_API_KEY'] = "AIzaSyB6J8YW1MMgJcNhuW5lHEUSlzhypWOQ8g8"
 genai.configure(api_key=os.environ['GOOGLE_API_KEY'])
@@ -32,20 +32,37 @@ def game_setup():
     theme = data.get("theme")
 
     # Generate content using the Generative Model
-    chat.send_message(f"Can you give me an adventurous interactive wording game set up and basic background stuff \
-                        with the main protagonist named {characterName} and the goal of the \
-                        game being {goal}")
-    response = chat.send_message(f"Now, based on the previous setup and background, conduct an interactive wording game. \
-                                 The game difficulty should be {gameDifficulty}, the interaction with me (the player) during the \
-                                 game should be conducted in {gameType} type. \
-                                 Examples of interaction could be asking me to choose which way to \
-                                 move next, or asking me to make actions in fighting with the boss etc. \
-                                 Now, let's start the game!")
+    response = chat.send_message(f"Hi, I want to start an interactive wording game with you. \
+                      So basically it's you giving me some sentences each response \
+                      on how the game is going, and ask me questions so \
+                      i can make moves. Here's some basics about the game: An adventurous \
+                      game with the main protagonist named {characterName} \
+                      and the goal of the game being {goal}, The game difficulty should \
+                      be {gameDifficulty}, i expected the interaction with me through the form \
+                      of {gameType}. Examples of interaction could be asking me to choose \
+                      which way to move next, or asking me to make actions in \
+                      fighting with the boss etc. Now, you can start the game with few sentences \
+                      on initialising of the game, like where is the protagonist, what's around him/her etc\
+                      and ask me question to help you forword the game. Repeat the process, until game finished, \
+                      is the goal is fulfilled. Note that i expected every response from you to be \
+                      in the same structure, for instance, your response could be: (Dennis choose to go left) \
+                      After 10 minutes of walk, he sees...(something something). QUESTION: What choice should you make? \
+                      So the response should be in the template of (last action or choice from player), description \
+                      of the effect of the action or consequences of the choice, how the game forwards, then ask question \
+                      or ask me to make a move or solve a quiz or something by starting with QUESTION:. \
+                      If it's the end of the game, the {goal} goal has been reached, QUESTION: should be replaced with THE END.")
     # response = model.generate_content(input_text)
     generated_text = response.text
 
+    q_start = re.search("QUESTION:", generated_text)
+    question = generated_text[q_start.start() + 10:]
+    description = generated_text[:q_start.start()]
+
     # Format the response
-    response_data = {'generated_text': generated_text}
+    response_data = {
+        "question": question,
+        "description": description
+    }
 
     # Send the response to the front end
     return jsonify(response_data)
@@ -54,15 +71,22 @@ def game_setup():
 def generate_answer():
     # Get the input data from the request
     data = request.json
-    input_text = data.get("response")
+    input_text = data.get("userInput")
 
     # Generate content using the Generative Model
     response = chat.send_message(input_text)
     # response = model.generate_content(input_text)
     generated_text = response.text
 
+    q_start = re.search("QUESTION:", generated_text)
+    question = generated_text[q_start.start() + 10:]
+    description = generated_text[:q_start.start()]
+
     # Format the response
-    response_data = {'generated_text': generated_text}
+    response_data = {
+        "question": question,
+        "description": description
+    }
 
     # Send the response to the front end
     return jsonify(response_data)

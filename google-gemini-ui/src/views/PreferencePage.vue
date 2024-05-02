@@ -1,11 +1,10 @@
 <template>
     <div class="common-layout">
       <el-container>
-        <el-header style="text-align: center; font-size: 30px">Game Preferences</el-header>
+        <el-header style="text-align: center; font-size: 30px">Building your game</el-header>
         <el-main>
             <character-name></character-name>
         </el-main>
-        <el-footer style="text-align: center; font-size: 20px">© 2024 google-gemini-ui</el-footer>
       </el-container>
     </div>
 </template>
@@ -20,4 +19,11 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.el-header {
+  color: #fff; /* 文字颜色 */
+
+}
+</style>
     

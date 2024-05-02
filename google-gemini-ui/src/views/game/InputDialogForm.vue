@@ -40,39 +40,85 @@
   </style>
    -->
 
-  <template>
-    <el-form @submit.prevent="handleSubmit" label-position="top">
-      <el-form-item :label="form.question">
-        <el-input v-model="form.answer" type="textarea" :rows="3" placeholder="Type your answer here..."></el-input>
-      </el-form-item>
-      <el-button type="primary" native-type="submit">Submit</el-button>
-    </el-form>
-  </template>
-  
-  <script>
-  import { defineComponent, ref } from 'vue';
-  
-  export default defineComponent({
-    props: {
-      form: {
-        type: Object,
-        required: true
-      }
-    },
-    setup(props, { emit }) {
-      const handleSubmit = () => {
-        console.log(`Submitted answer: ${props.form.answer}`);
-        emit('submit', props.form.answer); // Emit the answer to the parent
-      };
-  
-      return {
-        handleSubmit
-      };
-    },
-  });
-  </script>
-  
-  <style scoped>
-  /* Add styles here if needed */
-  </style>
-  
+<template>
+  <el-form>
+    <el-form-item :label="question">
+      <el-input v-model="answer" type="textarea" :rows="3" placeholder="Type your answer here..."></el-input>
+    </el-form-item>
+    <el-button type="primary" native-type="submit" @click="handleSubmit()">Submit</el-button>
+  </el-form>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+import { generateAnswer } from '@/api/api';
+import { useGameStageStore } from '@/utils/pinia';
+
+const props = defineProps({
+  form: {
+    type: Object,
+    required: true
+  }
+});
+
+const formData = props.form
+const question = formData.question
+const answer = ref("")
+
+const handleSubmit = () => {
+  console.log(formData.value)
+  console.log(answer)
+  // let param = {
+  //   userInput: answer.value
+  // }
+  // generateAnswer(param).then((res) => {
+  //   console.log(res.data)
+  //   store.gameNextStep(res.data)
+  // })
+};
+
+</script>
+
+<style scoped>
+/* Add styles here if needed */
+</style>
+
+
+
+
+<!-- <template>
+  <el-form @submit.prevent="handleSubmit">
+    <el-form-item :label="form.question">
+      <el-input v-model="form.answer" type="textarea" :rows="3" placeholder="Type your answer here..."></el-input>
+    </el-form-item>
+    <el-button type="primary" native-type="submit">Submit</el-button>
+  </el-form>
+</template>
+
+<script>
+import { defineComponent, ref } from 'vue';
+
+export default defineComponent({
+  props: {
+    form: {
+      type: Object,
+      required: true
+    }
+  },
+  setup(props, { emit }) {
+    const handleSubmit = () => {
+      console.log(`Submitted answer: ${props.form.answer}`);
+      emit('submit', props.form.answer); // Emit the answer to the parent
+    };
+
+    return {
+      handleSubmit
+    };
+  },
+});
+</script>
+
+<style scoped>
+/* Add styles here if needed */
+</style>
+   -->
