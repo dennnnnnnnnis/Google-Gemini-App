@@ -34,7 +34,7 @@
       <router-view/>
     </el-main>
     <el-footer 
-      style="text-align: center; font-size: 20px; position: fixed; bottom: 0; width: 100%;" class="footer">© 2024 google-gemini-ui
+      style="text-align: center; font-size: 20px; position: fixed; bottom: 0; width: 100%;" class="footer">© 2024 google-gemini-ui (UI still to be updated...)
     </el-footer>
   </el-container>
 </template>

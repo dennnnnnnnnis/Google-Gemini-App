@@ -3,7 +3,7 @@ import { reactive } from 'vue'
 
 export const useGameStageStore = defineStore('gameStage', () => {
     const steps = reactive([])
-    const answers = reactive([])
+    // const answers = reactive([])
 
     function gameNextStep(data) {
         steps.push({
@@ -14,11 +14,12 @@ export const useGameStageStore = defineStore('gameStage', () => {
             }
         })
     }
-    function saveAnswer(index, answer){
-        answer[index] = answer
+    function saveAnswer(answer){
+        steps.at(-1).form.answer = answer
+        // answers.push(answer)
     }
     function retrieveCurrStep(){
         return steps.at(-1)
     }
-    return { steps, answers, gameNextStep, saveAnswer, retrieveCurrStep }
+    return { steps, gameNextStep, saveAnswer, retrieveCurrStep }
 })
