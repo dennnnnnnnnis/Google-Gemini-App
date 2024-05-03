@@ -1,24 +1,29 @@
 <template>
     <div class="common-layout">
       <el-container>
-        <el-header style="text-align: center; font-size: 30px">Game Preferences</el-header>
+        <el-header style="text-align: center; font-size: 30px">Building your game</el-header>
         <el-main>
             <character-name></character-name>
         </el-main>
-        <el-footer style="text-align: center; font-size: 20px">© 2024 google-gemini-ui</el-footer>
       </el-container>
     </div>
 </template>
   
 <script>
 
-//   import { ElInput, ElButton } from 'element-plus'; // Make sure to import these if they are not globally registered
-  import CharacterName from "@/views/game/CharacterName.vue"
+import CharacterName from "@/views/game/CharacterName.vue"
 
- export default {
+export default {
   components: {
-    CharacterName // 注册组件
+    CharacterName
   }
 };
 </script>
+
+<style scoped>
+.el-header {
+  color: #fff; /* 文字颜色 */
+
+}
+</style>
     
