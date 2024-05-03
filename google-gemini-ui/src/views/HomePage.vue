@@ -46,8 +46,4 @@ function goToGame() {
   text-align: center;
 }
 
-.text-gemini {
-  color: #42b983; /* custom color, replace with your brand color */
-}
-
 </style>

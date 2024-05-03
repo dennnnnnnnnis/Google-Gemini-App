@@ -76,6 +76,7 @@ function handleCommand(command) {
   switch (command) {
     case 'About':
       console.log('Action 1 executed');
+      router.push('/about');
       break;
     case 'Github':
       console.log('Action 2 executed');
