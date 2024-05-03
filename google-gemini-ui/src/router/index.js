@@ -13,6 +13,10 @@ const routes = [
         path: '/preference',
         component: () => import("@/views/PreferencePage.vue")
     },
+    {
+        path: '/about',
+        component: () => import("@/views/About.vue")
+    },
 ]
 
 const router = createRouter({

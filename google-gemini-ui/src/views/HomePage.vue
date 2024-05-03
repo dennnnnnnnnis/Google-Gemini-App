@@ -3,7 +3,7 @@
     <div class="background-color" style="background-color: rgba(0, 0, 0, 0.8);"></div>
     <div class="text text-center">
       <div class>
-        <h1 class="">Welcome to the <span class="text-gemini">Gemini</span> Game</h1>
+        <h1 class="">Welcome to the D&H text-adventure in 80s</h1>
         <p class="">Build your own retro word game and play!</p>
         <div style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; align-items: center;">
           <el-button type="primary" @click="goToGame">Get started</el-button>
@@ -44,10 +44,6 @@ function goToGame() {
 
 .text-center {
   text-align: center;
-}
-
-.text-gemini {
-  color: #42b983; /* custom color, replace with your brand color */
 }
 
 </style>
