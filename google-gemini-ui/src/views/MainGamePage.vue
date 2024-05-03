@@ -11,25 +11,29 @@
             <el-form>
               <el-form-item :label="item.form.question" class="word-display">
                 <div v-if="item.form.answer.length>0">
-                  <el-text class="mx-1" size="large">{{ item.form.answer }}</el-text>
+                  <el-text class="mx-1" type="primary" size="large">{{ item.form.answer }}</el-text>
                 </div>
                 <div v-else>
                   <div v-if="item.form.question === 'THE END'">
                     <el-dialog
                       v-model="dialogVisible"
-                      title=""
+                      title="Congratulations!!!"
                       width="500"
                       :open-delay=5000
-                    ></el-dialog>
+                    >
+                      <span>You have finished the game!</span>
+                    </el-dialog>
                   </div>
                   <div v-else>
                     <el-input v-model="answer" type="textarea" :rows="3" placeholder="Type your answer here..."></el-input>
+                    <div class="el-right">
+                      <el-button type="primary" @click="handleSubmit" class="submit-button">Submit</el-button>
+                    </div>
                   </div>
                 </div>
               </el-form-item>
               <div class="el-right">
                 <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" class="avatar" />
-                <el-button type="primary" @click="handleSubmit" class="submit-button">Submit</el-button>
               </div>
             </el-form>
           </template>
@@ -40,13 +44,28 @@
 </template>
   
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { useGameStageStore } from '@/utils/pinia';
 import { generateAnswer } from '@/api/api';
+import { useRoute } from 'vue-router'
 
 const store = useGameStageStore()
 const answer = ref("")
 const dialogVisible = ref(true)
+const route = useRoute(); 
+
+watch(route, (newRoute) => {
+  switch (newRoute.path) {
+    case '/':
+      store.clearGame()
+      break;
+    case '/preference':
+      store.clearGame()
+      console.log(store.steps.length)
+      break;
+    // 添加其他路由匹配
+  }
+}, { immediate: true })
 
 const handleSubmit = () => {
   let param = {

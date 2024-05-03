@@ -3,10 +3,10 @@
     <div class="background-color" style="background-color: rgba(0, 0, 0, 0.8);"></div>
     <div class="text text-center">
       <div class>
-        <h1 class="">Welcome to the <span class="text-gemini">D&H 80s text-adventure</span> Game</h1>
+        <h1>Welcome to the <span class="text-gemini">D&H 80s text-adventure</span> Game</h1>
         <p class="">Build your own retro text game and play!</p>
         <div style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; align-items: center;">
-          <el-button type="primary" @click="goToGame">Get started</el-button>
+          <el-button color="#626aef" type="primary" @click="goToGame" size="large">Get started</el-button>
         </div>
       </div>
     </div>

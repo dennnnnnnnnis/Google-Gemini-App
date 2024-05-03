@@ -7,12 +7,13 @@
           class="el-menu-demo"
           mode="horizontal"
           background-color="transparent"
-          text-color="#fff"
+          text-color="#000000"
           active-text-color="#ffd04b"
           @select="handleSelect"
         >
-          <el-menu-item index="1">Home Page</el-menu-item>
-          <el-menu-item index="2">Game Page</el-menu-item>
+          <el-menu-item index="1"><el-icon><Eleme /></el-icon>Home Page</el-menu-item>
+          <el-menu-item index="2"><el-icon><Setting /></el-icon>Setting Page</el-menu-item>
+          <el-menu-item index="3" disabled><el-icon><SwitchFilled /></el-icon>Game Page</el-menu-item>
         </el-menu>
       </div>
       <div class = "other-links">
@@ -22,9 +23,9 @@
           </el-button>
           <template #dropdown>
             <el-dropdown-menu>
-              <el-dropdown-item command="About">About</el-dropdown-item>
-              <el-dropdown-item command="Github">GitHub</el-dropdown-item>
-              <el-dropdown-item command="Youtube">Youtube</el-dropdown-item>
+              <el-dropdown-item command="About"><el-icon><Document /></el-icon>About</el-dropdown-item>
+              <el-dropdown-item command="Github"><el-icon><Platform /></el-icon>GitHub</el-dropdown-item>
+              <el-dropdown-item command="Youtube"><el-icon><VideoPlay /></el-icon>Youtube</el-dropdown-item>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
@@ -34,19 +35,20 @@
       <router-view/>
     </el-main>
     <el-footer 
-      style="text-align: center; font-size: 20px; position: fixed; bottom: 0; width: 100%;" class="footer">© 2024 google-gemini-ui (UI still to be updated...)
+      style="text-align: center; font-size: 20px; position: fixed; bottom: 0; width: 100%;" class="footer">© 2024 google-gemini (UI still to be updated...)
     </el-footer>
   </el-container>
 </template>
 
 <script setup>
 import { useRoute, useRouter } from 'vue-router'
-import { ArrowDown} from '@element-plus/icons-vue'
+import { ArrowDown } from '@element-plus/icons-vue'
 import { ref, watch } from 'vue';
+import { VideoPlay, Platform, Setting, Document, SwitchFilled, Eleme } from '@element-plus/icons-vue';
 
 const router = useRouter()
-const route = useRoute();  // 使用 useRoute 钩子获取当前路由信息
-const activeIndex = ref('1');  // 用 ref 创建一个响应式变量来存储活动索引
+const route = useRoute(); 
+const activeIndex = ref('1'); 
 
 watch(route, (newRoute) => {
   switch (newRoute.path) {
@@ -58,7 +60,7 @@ watch(route, (newRoute) => {
       break;
     // 添加其他路由匹配
   }
-}, { immediate: true });  // immediate: true 确保组件加载时立即运行
+}, { immediate: true });
 
 function handleSelect(index) {
   // Navigation logic based on selected menu index
@@ -92,19 +94,19 @@ function handleCommand(command) {
 
 <style scoped>
 .el-menu {
-  width: 100%; /* Ensure the menu uses the full width of its container */
-  overflow: visible; /* Make sure overflow does not hide content */
+  width: 100%; 
+  overflow: visible; 
 }
 
 .el-menu-item {
-  min-width: 120px; /* Ensure each item has enough width to display its content */
-  flex-shrink: 0; /* Prevents the menu items from shrinking */
+  min-width: 120px; 
+  flex-shrink: 0; 
 }
 
 .header-content {
   display: flex;
-  width: 100%; /* Make sure the header content uses the full width */
-  justify-content: space-between; /* Maintains space between items */
+  width: 100%; 
+  justify-content: space-between;
 }
 
 .other-links{

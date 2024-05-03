@@ -31,6 +31,8 @@ def game_setup():
     gameType = data.get("gameType")
     theme = data.get("theme")
 
+    if len(chat.history) > 0:
+        chat.rewind()
     # Generate content using the Generative Model
     response = chat.send_message(f"Hi, I want to start an interactive wording game with you. \
                       So basically it's you giving me some sentences each response \
@@ -53,7 +55,9 @@ def game_setup():
                       If it's the end of the game, the {goal} goal has been reached, 'QUESTION:' should be replaced with 'THE END'. \
                       I except we hav in total of 15-40 turns based on the difficulty that I mentioned before, if it's easy, \
                       finish the game in 15-20 turns; medium, 25-30 turns; hard, 35-40 turns. The last couple turns should be about \
-                      reaching the goal. Again, in the last turn or once the goal is reached, 'QUESTION:' should be replaced with 'THE END'.")
+                      reaching the goal. Again, in the last turn or once the goal is reached, 'QUESTION:' should be replaced with 'THE END'. \
+                      Note that the game must have an end. So you should control the plot of the game so that the {goal} goal can be achieved within \
+                      the predetermined turns.")
     # response = model.generate_content(input_text)
     generated_text = response.text
 

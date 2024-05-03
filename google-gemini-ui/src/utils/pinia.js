@@ -21,5 +21,10 @@ export const useGameStageStore = defineStore('gameStage', () => {
     function retrieveCurrStep(){
         return steps.at(-1)
     }
-    return { steps, gameNextStep, saveAnswer, retrieveCurrStep }
+    function clearGame(){
+        if (steps.length > 0){
+            steps.pop()
+        }
+    }
+    return { steps, gameNextStep, saveAnswer, retrieveCurrStep, clearGame }
 })
