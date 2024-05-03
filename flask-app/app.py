@@ -44,19 +44,26 @@ def game_setup():
                       fighting with the boss etc. Now, you can start the game with few sentences \
                       on initialising of the game, like where is the protagonist, what's around him/her etc\
                       and ask me question to help you forword the game. Repeat the process, until game finished, \
-                      is the goal is fulfilled. Note that i expected every response from you to be \
+                      or the goal is fulfilled. Note that i expected every response from you to be \
                       in the same structure, for instance, your response could be: (Dennis choose to go left) \
                       After 10 minutes of walk, he sees...(something something). QUESTION: What choice should you make? \
-                      So the response should be in the template of (last action or choice from player), description \
+                      So the response should be in the template of (last action or choice from player or initilising of the game ), description \
                       of the effect of the action or consequences of the choice, how the game forwards, then ask question \
-                      or ask me to make a move or solve a quiz or something by starting with QUESTION:. \
-                      If it's the end of the game, the {goal} goal has been reached, QUESTION: should be replaced with THE END.")
+                      or ask me to make a move or solve a quiz or something by starting with with word QUESTION:. \
+                      If it's the end of the game, the {goal} goal has been reached, QUESTION: should be replaced with THE END. \
+                      I except we hav in total of 15-40 turns based on the difficulty that I mentioned before, if it's easy, \
+                      finish the game in 15-20 turns; medium, 25-30 turns; hard, 35-40 turns. The last couple turns should be about \
+                      reaching the goal. Again, in the last turn or once the goal is reached, QUESTION: should be replaced with THE END.")
     # response = model.generate_content(input_text)
     generated_text = response.text
 
     q_start = re.search("QUESTION:", generated_text)
-    question = generated_text[q_start.start() + 10:]
-    description = generated_text[:q_start.start()]
+    if q_start is None:
+        question = ""
+        description = ""
+    else:
+        question = generated_text[q_start.start() + 10:]
+        description = generated_text[:q_start.start()]
 
     # Format the response
     response_data = {
@@ -79,8 +86,17 @@ def generate_answer():
     generated_text = response.text
 
     q_start = re.search("QUESTION:", generated_text)
-    question = generated_text[q_start.start() + 10:]
-    description = generated_text[:q_start.start()]
+    if q_start is None:
+        q_start = re.search("THE END", generated_text)
+        if q_start is not None:
+            question = generated_text[q_start.start():q_start.start() + 7]
+            description = generated_text[:q_start.start()]
+        else:
+            question = ""
+            description = ""
+    else:
+        question = generated_text[q_start.start() + 10:]
+        description = generated_text[:q_start.start()]
 
     # Format the response
     response_data = {
